@@ -26,6 +26,9 @@ namespace MvcCreditApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddOutputCache();
+
+
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
@@ -48,6 +51,8 @@ namespace MvcCreditApp
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            app.UseOutputCache();
 
             app.UseAuthorization();
 
