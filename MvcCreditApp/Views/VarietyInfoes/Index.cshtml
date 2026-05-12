@@ -1,0 +1,76 @@
+﻿@model IEnumerable<MvcCreditApp.Models.VarietyInfo>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>История характеристик сортов</h2>
+<p>
+    <a asp-action="Create"> Добавить характеристику </a>  
+</p>
+<p>
+    <a asp-action="TopByProductivity"> Лучшие по урожайности </a>
+</p>
+<p>
+    <a asp-action="BottomByProductivity"> Худшие по урожайности </a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Variety.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Germination)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Productivity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Variety.Crop)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Variety.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Germination)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Productivity)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Variety.Crop)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<a asp-controller="Varieties" asp-action="Index">Назад</a>

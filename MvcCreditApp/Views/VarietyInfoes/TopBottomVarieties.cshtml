@@ -1,0 +1,55 @@
+﻿@model IEnumerable<MvcCreditApp.ViewModels.VarietySummaryViewModel>
+
+@{
+    ViewData["Title"] = ViewBag.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>@ViewBag.Title</h3>
+
+<div>
+@if (!Model.Any())
+{
+        <div>Нет данных</div>
+}
+else
+{
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Сорт</th>
+                    <th>Культура</th>
+                    <th>Год</th>
+                    <th>Урожайность</th>
+                    <th>Всхожесть</th>
+                    <th>Сумма</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int rank = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@rank</td>
+                        <td><strong>@item.VarietyName</strong></td>
+                        <td>@item.Crop</td>
+                        <td>@item.Year</td>
+                        <td>
+                            <span class="badge @(item.Productivity == 3 ? "bg-success" : item.Productivity == 2 ? "bg-warning" : "bg-danger")">
+                                @item.ProductivityText
+                            </span>
+                        </td>
+                        <td>@item.GerminationText</td>
+                        <td>@item.TotalScore/6</td>
+                    </tr>
+                    rank++;
+                }
+            </tbody>
+        </table>
+}
+</div>
+    <a asp-action="Index">Назад</a>
+
