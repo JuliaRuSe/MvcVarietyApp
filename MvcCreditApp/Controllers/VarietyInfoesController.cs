@@ -25,8 +25,6 @@ namespace MvcCreditApp.Controllers
         // GET: VarietyInfoes
         public async Task<IActionResult> Index()
         {
-            //var creditContext = _context.VarietyInfos.Include(v => v.Variety);
-            //return View(await creditContext.ToListAsync());
             var varietyInfos = await _context.VarietyInfos
                 .Include(v => v.Variety)
                 .OrderByDescending(v => v.Year)
@@ -59,8 +57,6 @@ namespace MvcCreditApp.Controllers
         {
             ViewData["VarietyId"] = new SelectList(_context.Varieties, "Id", "Name");
             return View();
-            //ViewBag.Varieties = _context.Varieties.OrderBy(v => v.Name).ToList();
-            //return View();
         }
 
         // POST: VarietyInfoes/Create
@@ -70,15 +66,7 @@ namespace MvcCreditApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,VarietyId,Year,Germination,Productivity,Notes")] VarietyInfo varietyInfo)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    _context.Add(varietyInfo);
-            //    await _context.SaveChangesAsync();
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //ViewData["VarietyId"] = new SelectList(_context.Varieties, "Id", "Crop", varietyInfo.VarietyId);
-            //return View(varietyInfo);
-            // Проверка на дублирование года для сорта
+
             var exists = await _context.VarietyInfos
                 .AnyAsync(v => v.VarietyId == varietyInfo.VarietyId && v.Year == varietyInfo.Year);
 
@@ -114,17 +102,7 @@ namespace MvcCreditApp.Controllers
             }
             ViewData["VarietyId"] = new SelectList(_context.Varieties, "Id", "Crop", varietyInfo.VarietyId);
             return View(varietyInfo);
-            //var varietyInfo = await _context.VarietyInfos
-            //    .Include(v => v.Variety)
-            //    .FirstOrDefaultAsync(v => v.Id == id);
 
-            //if (varietyInfo == null)
-            //{
-            //    return NotFound();
-            //}
-
-            //ViewBag.Varieties = _context.Varieties.OrderBy(v => v.Name).ToList();
-            //return View(varietyInfo);
         }
 
         // POST: VarietyInfoes/Edit/5
